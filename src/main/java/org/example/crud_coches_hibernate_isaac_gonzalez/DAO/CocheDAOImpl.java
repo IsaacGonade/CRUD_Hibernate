@@ -11,9 +11,11 @@ public class CocheDAOImpl implements CocheDAO{
     public void insertarCoche(Coche coche, Session session) {
         Transaction transaction = null;
         try{
+            //guardo el nuevo coche
             transaction = session.beginTransaction();
             session.save(coche);
             transaction.commit();
+            session.clear();
         } catch (Exception e) {
             if(transaction != null)
                 transaction.rollback();
@@ -35,6 +37,7 @@ public class CocheDAOImpl implements CocheDAO{
             cocheSeleccionado.setModelo(cocheNuevo.getModelo());
             cocheSeleccionado.setTipo(cocheNuevo.getTipo());
 
+            //actualizo el coche
             session.update(cocheSeleccionado);
             transaction.commit();
             session.clear();
@@ -50,9 +53,12 @@ public class CocheDAOImpl implements CocheDAO{
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
+            //selecciono el id del coche seleccionado en la tabla
             Coche cocheSeleccionado = session.get(Coche.class, coche.getId());
+            //elimino el coche seleccionado
             session.delete(cocheSeleccionado);
             transaction.commit();
+            session.clear();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -66,6 +72,7 @@ public class CocheDAOImpl implements CocheDAO{
         Transaction transaction = null;
         List<Coche> coches = null;
         try{
+            //obtengo todos los coches y los muestro en la tabla
             transaction = session.beginTransaction();
             coches = session.createQuery("from Coche").list();
             transaction.commit();

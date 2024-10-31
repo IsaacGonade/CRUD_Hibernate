@@ -56,14 +56,9 @@ public class CochesController implements Initializable {
     Session session = HibernateUtil.getSession();
 
 
-    //metodo que conecta con la base de datos y carga los datos desde el inicio
+    //metodo carga los datos desde el inicio
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        /*try {
-            HibernateUtil.getSession();
-        } catch (Exception ioe) {
-            Alerts.mostrarError("Error al cargar la base de datos");
-        }*/
         cargarDatos();
     }
 
@@ -101,7 +96,7 @@ public class CochesController implements Initializable {
         try {
             //alerta para confirmar la accion
             Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("¿Eliminar producto?");
+            confirmacion.setTitle("¿Eliminar coche?");
             confirmacion.setContentText("¿Estás seguro?");
             Optional<ButtonType> respuesta = confirmacion.showAndWait();
             if (respuesta.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE){
@@ -122,16 +117,16 @@ public class CochesController implements Initializable {
     void onInsertar(ActionEvent event) {
         String matricula = matriculaTF.getText();
 
-        //valido que el campo de la matricula no este vacio y que cumpla con los requisitos
+        //valido que el campo de la matrícula no este vacio y que cumpla con los requisitos
         if (matricula.isEmpty()) {
-            Alerts.mostrarError("La marca es un campo obligatorio");
+            Alerts.mostrarError("La matricula es un campo obligatorio");
             return;
         }else if (!Validar.comprobarMatricula(matriculaTF.getText())){
             Alerts.mostrarError("La matricula no cumple los requisitos");
             return;
         }
 
-        //recojo los datos de los campos de texto y los guardoe en un nuevo objeto
+        //recojo los datos de los campos de texto y los guardo en un nuevo objeto
         String marca = marcaTF.getText();
         String modelo = modeloTF.getText();
         String tipo = cbTipo.getSelectionModel().getSelectedItem();
@@ -140,7 +135,7 @@ public class CochesController implements Initializable {
         try {
             //alerta para confirmar la accion
             Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("¿Añadir producto?");
+            confirmacion.setTitle("¿Añadir coche?");
             confirmacion.setContentText("¿Estás seguro?");
             Optional<ButtonType> respuesta = confirmacion.showAndWait();
             if (respuesta.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE){
@@ -160,6 +155,7 @@ public class CochesController implements Initializable {
     void onModificar(ActionEvent event) {
         String matricula = matriculaTF.getText();
 
+        //valido que el campo de la matrícula no este vacio y que cumpla con los requisitos
         if (matricula.isEmpty()) {
             Alerts.mostrarError("La matricula es un campo obligatorio");
             return;
@@ -176,7 +172,7 @@ public class CochesController implements Initializable {
         try {
             //alerta para confirmar la accion
             Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmacion.setTitle("¿Añadir producto?");
+            confirmacion.setTitle("¿Añadir coche?");
             confirmacion.setContentText("¿Estás seguro?");
             Optional<ButtonType> respuesta = confirmacion.showAndWait();
             if (respuesta.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE){
@@ -192,7 +188,7 @@ public class CochesController implements Initializable {
     }
 
 
-    //metodo para limpiar todos los campos
+    //boton para limpiar todos los campos
     @FXML
     void onLimpiar(ActionEvent event) {
         marcaTF.setText("");
